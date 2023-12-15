@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import firestore from '@react-native-firebase/firestore';
 
 export default function Home() {
-
+  const [userData, setUserData] = useState([]);
   const fetchDocument = () => {
     firestore()
       .collection('users')
@@ -11,11 +11,10 @@ export default function Home() {
       .then(querySnapshot => {
         console.log('Total users: ', querySnapshot.size);
 
-        querySnapshot.forEach(documentSnapshot => {
-          let data = { id: documentSnapshot, ...documentSnapshot.data() }
-          console.log(data)
-          console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+        const usersData = querySnapshot.docs.map(documentSnapshot => {
+          return { id: documentSnapshot.id, ...documentSnapshot.data() };
         });
+        setUserData(usersData);
       });
   }
   useEffect(() => {

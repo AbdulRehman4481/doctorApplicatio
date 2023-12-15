@@ -10,7 +10,8 @@ const patientDetail = {
   patientDoctor: ""
 }
 const Appointment = ({ navigation }) => {
-  const [state, setState] = useState(patientDetail)
+  const [state, setState] = useState(patientDetail);
+  const [selectedDoctor, setSelectedDoctor] = useState("");
 
   const handleChange = (name, val) => {
     setState(s => ({ ...s, [name]: val }))
@@ -95,6 +96,7 @@ const Appointment = ({ navigation }) => {
           onChangeText={(value) => handleChange('patientDoctor', value)}
           left={<TextInput.Icon name={() => <Icon name="person" size={24} />} />}
         />
+
 
         <Button mode="contained" onPress={handleAppointment} style={styles.button}>
           Book Appointment

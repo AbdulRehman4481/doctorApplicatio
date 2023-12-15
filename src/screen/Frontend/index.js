@@ -7,6 +7,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import Iconz from 'react-native-vector-icons/MaterialCommunityIcons'
 import Iconzz from 'react-native-vector-icons/Fontisto'
+import Screen1 from './Screen1';
+import Screen2 from './Screen2';
 
 const Tabe = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -53,6 +55,16 @@ export default function Frontend() {
     <>
       {/* <AppTabe /> */}
       <Stack.Navigator>
+        <Stack.Screen name='Screen1' component={Screen1}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen name='Screen2' component={Screen2}
+          options={{
+            headerShown: false
+          }}
+        />
         <Stack.Screen name="Rootz" component={AppTabe}
           options={{
             headerShown: false
