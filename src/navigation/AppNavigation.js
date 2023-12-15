@@ -11,6 +11,7 @@ export default function AppNavigation() {
 
     <NavigationContainer>
       <Frontend />
+      {/* <Authca />   */}
 {/*       
       {isAuthantication 
        ? 

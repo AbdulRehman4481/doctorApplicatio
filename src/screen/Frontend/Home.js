@@ -144,13 +144,13 @@ export default function Home({ navigation }) {
                       <Text style={{ fontSize: 19, color: "white" }} numberOfLines={1} ellipsizeMode="tail">
                         {doc.doctorName}
                       </Text>
-                      <Text style={{ fontSize: 20, color: "white" }}>
+                      <Text style={{ fontSize: 20,fontWeight:"bold" ,color: "white" }}>
                         For <Text style={{fontSize: 15}}>{doc.doctorSpecialization}</Text>
                       </Text>
                     </View>
                   </View>
                   <View style={{ justifyContent: "flex-end", }}>
-                    <TouchableOpacity style={{ borderWidth: 1, padding: 7, borderColor: "white", borderRadius: 10 }} >
+                    <TouchableOpacity style={{ borderWidth: 1, padding: 7, borderColor: "white", borderRadius: 10 }} onPress={() => navigation.navigate("ToAppoint",{ doctorData: doc })} >
                       <Text style={{ color: "white" }}>
                         Appoint
                       </Text>
@@ -159,58 +159,7 @@ export default function Home({ navigation }) {
                 </View>
               ))}
             </View>
-            {/*     <View style={styles.cardes}>
-              <View>
-                <Image style={styles.image} source={require("../../assets/image/dr2.png")} />
-              </View>
-              <View style={{ justifyContent: "center", margin: 10 }}>
-                <Text style={{ fontSize: 19, color: "white" }}>
-                  Hasnain  Raza
-                </Text>
-                <Text style={{ fontSize: 19, color: "white" }}>
-                  For <Text>Dermatologist</Text>
-                </Text>
-              </View>
-            </View>
-            <View style={styles.cardes}>
-              <View>
-                <Image style={styles.image} source={require("../../assets/image/dr5.png")} />
-              </View>
-              <View style={{ justifyContent: "center", margin: 10 }}>
-                <Text style={{ fontSize: 19, color: "white" }}>
-                  Amir Arshad
-                </Text>
-                <Text style={{ fontSize: 19, color: "white" }}>
-                  For <Text>Gynaecologist</Text>
-                </Text>
-              </View>
-            </View>
-            <View style={styles.cardes}>
-              <View>
-                <Image style={styles.image} source={require("../../assets/image/anya.png")} />
-              </View>
-              <View style={{ justifyContent: "center", margin: 10 }}>
-                <Text style={{ fontSize: 19, color: "white" }}>
-                  Mozzam Ali
-                </Text>
-                <Text style={{ fontSize: 19, color: "white" }}>
-                  For <Text>Endocrinologist</Text>
-                </Text>
-              </View>
-            </View>
-            <View style={styles.cardes}>
-              <View>
-                <Image style={styles.image} source={require("../../assets/image/dr2.png")} />
-              </View>
-              <View style={{ justifyContent: "center", margin: 10 }}>
-                <Text style={{ fontSize: 19, color: "white" }}>
-                  Asim Ali
-                </Text>
-                <Text style={{ fontSize: 19, color: "white" }}>
-                  For <Text>Endocrinologist</Text>
-                </Text>
-              </View>
-            </View> */}
+           
           </View>
         </ScrollView>
       </ScrollView>
@@ -345,10 +294,10 @@ const styles = StyleSheet.create({
   },
   mainHeading: {
     // marginLeft: 50,
-    color: "white",
+    color: "#198EB6",
     fontSize: 30,
     fontFamily: "serif",
-    textShadowColor: "white",
+    textShadowColor: "#198EB6",
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 10,
   },

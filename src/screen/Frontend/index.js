@@ -9,6 +9,7 @@ import Iconz from 'react-native-vector-icons/MaterialCommunityIcons'
 import Iconzz from 'react-native-vector-icons/Fontisto'
 import Screen1 from './Screen1';
 import Screen2 from './Screen2';
+import Account from './Account';
 
 const Tabe = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -24,13 +25,7 @@ const AppTabe = () => {
         }}
 
       />
-      <Tabe.Screen name="To Appoint " component={Appointment}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Iconz name="book-search-outline" color={color} size={size} />
-          ),
-        }}
-      />
+
       <Tabe.Screen name="Booked Appointment " component={BookedAppointment}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -38,14 +33,15 @@ const AppTabe = () => {
           ),
         }}
       />
-
-      {/* <Tabe.Screen name="Appointment " component={Appointment}
+      <Tabe.Screen name="Account " component={Account}
         options={{
+          tabBarLabel: "Account",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Iconz name="book-search-outline" color={color} size={size} />
+            <Iconz name="account-multiple" color={color} size={size} />
           ),
         }}
-      /> */}
+      />
     </Tabe.Navigator>
   );
 }
@@ -53,7 +49,6 @@ const AppTabe = () => {
 export default function Frontend() {
   return (
     <>
-      {/* <AppTabe /> */}
       <Stack.Navigator>
         <Stack.Screen name='Screen1' component={Screen1}
           options={{
@@ -68,6 +63,13 @@ export default function Frontend() {
         <Stack.Screen name="Rootz" component={AppTabe}
           options={{
             headerShown: false
+          }}
+        />
+        <Stack.Screen name="ToAppoint" component={Appointment}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Iconz name="book-search-outline" color={color} size={size} />
+            ),
           }}
         />
       </Stack.Navigator>

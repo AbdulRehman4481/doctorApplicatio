@@ -1,12 +1,13 @@
 import { View, Text, ScrollView, StyleSheet, Image, ImageBackground, Modal, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import firestore from '@react-native-firebase/firestore';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Home() {
   const [userData, setUserData] = useState([]);
   const fetchDocument = () => {
     firestore()
-      .collection('users')
+      .collection('BoookedAppointments')
       .get()
       .then(querySnapshot => {
         console.log('Total users: ', querySnapshot.size);
@@ -15,6 +16,7 @@ export default function Home() {
           return { id: documentSnapshot.id, ...documentSnapshot.data() };
         });
         setUserData(usersData);
+        console.log()
       });
   }
   useEffect(() => {
@@ -32,11 +34,26 @@ export default function Home() {
         </ImageBackground>
       </View>
       <ScrollView>
-        {userData.map(user => (
+        <View style={{ flexDirection: "row", justifyContent: "space-around", marginVertical: 20,marginHorizontal:10 }}>
+          <Text>
+            #
+          </Text>
+          <Text>
+            Doctor Name
+          </Text>
+          <Text>
+            Patient Name
+          </Text>
+          <Text>
+            Action
+          </Text>
+        </View>
+        {userData.map((user, i) => (
           <View key={user.id} style={styles.cardes}>
-            {/* Render components based on user data */}
-            <Text>{user.patientName}</Text>
-            {/* Add other user data fields as needed */}
+            <Text style={{ color: "white" }}>{i + 1}</Text>
+            <Text style={{ color: "white" }}>{user.patientName}</Text>
+            <Text style={{ color: "white" }}>{user.patientDoctor}</Text>
+            <Text style={{ color: "white" }}><Icon name="delete" size={20} /></Text>
           </View>
         ))}
       </ScrollView>
@@ -47,37 +64,15 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
+
+
   cardes: {
+    justifyContent:"space-around",
     flexDirection: "row",
     borderWidth: 1,
     borderColor: "#198EB6",
     borderRadius: 10,
-    marginHorizontal: 15,
+    marginHorizontal: 5,
     marginVertical: 15,
     padding: 10,
     backgroundColor: "#198EB6"
@@ -89,17 +84,6 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     textAlign: "center",
-
-  },
-  secondView: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 50,
-    backgroundColor: "white",
-    height: 70,
-    width: 70,
-    marginLeft: 20,
-
 
   },
   mainHeading: {

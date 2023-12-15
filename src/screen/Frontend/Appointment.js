@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Alert } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -9,19 +9,22 @@ const patientDetail = {
   patientEmail: "",
   patientDoctor: ""
 }
-const Appointment = ({ navigation }) => {
+const Appointment = ({ route }) => {
   const [state, setState] = useState(patientDetail);
-  const [selectedDoctor, setSelectedDoctor] = useState("");
+  const { doctorData } = route.params;
+  const { doctorName } = doctorData;
 
   const handleChange = (name, val) => {
     setState(s => ({ ...s, [name]: val }))
   }
   const handleAppointment = async () => {
+
     const { patientName,
       patientEmail,
-      patientDoctor } = state;
+      patientDoctor
+    } = state;
 
-    if (!patientName || !patientEmail || !patientDoctor) {
+    if (!patientName || !patientEmail) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
     }
@@ -29,11 +32,10 @@ const Appointment = ({ navigation }) => {
     const detail = {
       patientName,
       patientEmail,
-      patientDoctor,
+      patientDoctor: doctorName,
       status: 'active',
       dateCreated: new Date().getTime(),
       id: Math.random().toString(36).slice(2),
-      // bgColor: selectedColor,
       // createdBy: {
       //   email: user.createdBy.email,
       //   uid: user.createdBy.uid,
@@ -41,16 +43,13 @@ const Appointment = ({ navigation }) => {
     };
 
     await addDocument(detail);
+    Alert.alert('Success', 'Booked Appointment');
   };
 
   const addDocument = async (detail) => {
     try {
-      // patientName,
-      // patientEmail,
-      // patientDoctor,
-      let { patientName, patientEmail, patientDoctor } = state;
-      // const { email, uid } = user;
-
+      let { patientName, patientEmail } = state;
+      let { patientDoctor } = detail
       const userData = {
         patientName, patientEmail, patientDoctor,
         dateCreated: firestore.FieldValue.serverTimestamp(),
@@ -59,14 +58,14 @@ const Appointment = ({ navigation }) => {
       };
 
       await firestore()
-        .collection('users')
-        .doc("patient")
+        .collection('BoookedAppointments')
+        .doc(userData.id)
         .set(userData);
 
       console.log('User has been added to Firestore!');
     } catch (err) {
       console.error('Something went wrong while adding user to Firestore', err);
-    } 
+    }
   };
 
   return (
@@ -76,7 +75,6 @@ const Appointment = ({ navigation }) => {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Book an Appointment</Text>
-
         <TextInput
           style={styles.input}
           label="Patient Name"
@@ -85,7 +83,7 @@ const Appointment = ({ navigation }) => {
         />
         <TextInput
           style={styles.input}
-          label="Email"
+          label="Patient Email"
           onChangeText={(value) => handleChange('patientEmail', value)}
           left={<TextInput.Icon name={() => <Icon name="person" size={24} />} />}
         />
@@ -93,7 +91,7 @@ const Appointment = ({ navigation }) => {
         <TextInput
           style={styles.input}
           label="Doctor"
-          onChangeText={(value) => handleChange('patientDoctor', value)}
+          value={doctorName}
           left={<TextInput.Icon name={() => <Icon name="person" size={24} />} />}
         />
 
